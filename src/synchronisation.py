@@ -46,25 +46,3 @@ def synchronisation_random_optimised(CA: ElementaryCellularAutomaton, driver_ini
         :param time: Time Horizon for the synchronisation
         :return: Normalised Synchronisation Error
         """
-
-
-def synchronisation_random_transition(CA: ElementaryCellularAutomaton,
-                                      initial_configuration: Callable[[], tuple[ndarray[int], ndarray[int]]],
-                                      p_coupling: ndarray[float], time: int, n: int) -> ndarray[ndarray[float]]:
-    """
-    Compute the random punching synchronisation transition diagram
-    :param CA: Rule of the Driver and the Replica
-    :param initial_configuration: Initial configuration for the driver and replica
-    :param p_coupling: Coupling probabilities
-    :param time: Time Horizon for the synchronisation
-    :param n: Number of simulation for each probability
-    :return: Array of size (n, len(p_coupling)) with the normalised synchronisation error at time t
-    """
-
-    err = np.zeros([n, len(p_coupling)])
-    for i in range(n):
-        for j in range(len(p_coupling)):
-            (driver, replica) = initial_configuration()
-            err[i, j] = synchronisation_random(CA, driver, replica, p_coupling[j], time)[-1]
-
-    return err

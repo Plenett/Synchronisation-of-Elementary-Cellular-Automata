@@ -27,9 +27,10 @@ def synchronisation_random(CA: ElementaryCellularAutomaton, driver_initial: ndar
         replica = CA.step(replica)
 
         # Measurements
-        sensors = np.random.rand(len(driver)) < p_coupling
-        replica[sensors] = driver[sensors]
-        err[t] = np.mean(driver ^ replica)
+        if err[t - 1] != 0:
+            sensors = np.random.rand(len(driver)) < p_coupling
+            replica[sensors] = driver[sensors]
+            err[t] = np.mean(driver ^ replica)
 
     return err
 
